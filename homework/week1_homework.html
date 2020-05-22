@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>바베큐샵</title>
+
+    <style>
+        .wrap_img {
+          margin: -100px auto;
+          padding: 100px;
+          width: 800px;
+        }
+
+        .wrap_form {
+          margin: -230px auto;
+          padding: 100px;
+          width: 900px;
+        } 
+
+        .wrap_submit {
+          margin: 50px auto;
+          padding: 100px;
+          width: 100px;
+        } 
+      </style>
+          <script>
+            function order_complete(){
+                alert('주문이 완료되었습니다.') 
+    
+        }
+        </script>
+  </head>
+  <body>
+      <div class = 'wrap_img'>
+    <p>
+      <img 
+        src="https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/77292977_117080836455375_1439864364669448641_n.jpg?_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_cat=103&_nc_ohc=f1YglaQItC0AX83iZzA&oh=a292b9b7935abbe19dd9fc1407a09bbe&oe=5ED39060"
+      />
+    </p></div>
+    <div class='wrap_form'>
+    <p>
+    <h1 style="display: inline;">상품제목</h1>
+    <p style="display: inline;">가격: 40,000원 / 3kg</p></p>
+    <p>
+    양지머리는 소의 가슴살을 가리킨다. 소에게는 쇄골이 없기 때문에, 이 부위가 소가 이동하거나 서있을 때의 무게의 약 60%를 지탱한다. 때문에 양지머리에는 질긴 결합조직의 비중이 높으며, 오랜 시간에 걸쳐 연하게 만드는 것이 좋다. 브리스킷용 차돌양지 원육입니다. 최대한 큰 덩어리로 드리며 일부 비계는 직접 제거하셔야 합니다.
+    </p>
+    <h1>주문하기</h1>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">주문자 성함:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">수량:</label>
+
+      <div class="input-group-prepend col-sm-5">
+        <button
+          class="btn btn-outline-secondary dropdown-toggle btn-block"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">3kg</a>
+          <a class="dropdown-item" href="#">4kg</a>
+          <a class="dropdown-item" href="#">5kg</a>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">주소:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+    <div class="form-group row" >
+      <label class="col-sm-2 col-form-label">전화번호:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+    </div>
+    <div class="wrap_submit">
+    <button onclick = "order_complete()" type="submit" class="btn btn-primary">주문하기</button></div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
