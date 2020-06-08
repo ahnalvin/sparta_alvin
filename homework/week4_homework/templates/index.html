@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <title>바베큐샵</title>
+
+    <style>
+      .wrap_img {
+        margin: 10px auto;
+        width: 650px;
+      }
+
+      .wrap_form {
+        margin: 10px auto;
+        width: 700px;
+      }
+
+      .wrap_submit {
+        margin: 50px auto;
+        /* padding: 100px; */
+        width: 100px;
+      }
+    </style>
+    <script>
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url:"https://api.manana.kr/exchange/rate.json",
+          data: {},
+          success: function(response) {
+            let rate = response[1]["rate"];
+            // console.log(rate);
+            $('#rate').text(`원-달러 환율: ${rate}`)
+          },
+        });
+        listing();
+        $('#orders-box').empty();
+      })
+    </script>
+
+    <script>
+      function order_complete() {
+        let name = $("#name").val();
+        let quantity = $("#quantity").val();
+        let address = $("#address").val();
+        let phone = $("#phone").val();
+        phone_regexp = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/;
+
+        // console.log(name, quantity, address, phone);
+        if (name == "") {
+          alert("이름을 입력해주세요.");
+        } else if (quantity == "") {
+          alert("수량을 입력해주세요.");
+        } else if (address == "") {
+          alert("주소를 입력해주세요.");
+        } else if (phone == "") {
+          alert("휴대폰 번호를 입력해주세요.");
+        } else if (!phone_regexp.test(phone)) {
+          alert(
+            "양식에 맞지 않습니다. 양식에 맞게 입력해주세요 (000-0000-0000)."
+          );
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/orders",
+                data: {name_front: name, quantity_front: quantity, address_front: address, phone_front: phone},
+                success: function (response) { 
+                if (response['result'] == 'success') {
+                    alert("주문이 완료되었습니다.");
+                    window.location.reload();
+                }
+                else {
+                    alert('서버 오류!')
+                }
+                }
+            })
+        }
+      }
+
+      function listing() {
+        $.ajax({
+          type: "GET",
+          url: "/orders",
+          data: {},
+          success: function(response){
+             if (response['result'] == 'success') {
+               let orders = response['orders'];
+               console.log(orders);
+               for (let i = 0; i < orders.length; i++) {
+                 make_card(orders[i]['name'],orders[i]['quantity'],orders[i]['address'],orders[i]['phone'])
+               }
+             } else {
+               alert('주문을 가져오지 못했습니다');
+             }
+          }
+        })
+      }
+
+      function make_card(name,quantity,address,phone) {
+        let temp_html = `<tr>\
+            <td>${name}</td>\
+            <td>${quantity}</td>\
+            <td>${address}</td>\
+            <td>${phone}</td>\
+          </tr>`;
+        $('#orders-box').append(temp_html);
+    }
+
+    </script>
+  </head>
+  <body>
+    <div class="wrap_img">
+      <p>
+        <img
+          src="https://cdn.wadiz.kr/ft/images/green001/2019/0505/20190505095854617_97.jpg/wadiz/format/jpg/quality/80/optimize"
+        />
+      </p>
+    </div>
+    <div class="wrap_form">
+      <p></p>
+      <h1 style="display: inline;">상품제목</h1>
+      <p style="display: inline;">가격: 40,000원 / 3kg</p>
+      <p>
+        양지머리는 소의 가슴살을 가리킨다. 소에게는 쇄골이 없기 때문에, 이
+        부위가 소가 이동하거나 서있을 때의 무게의 약 60%를 지탱한다. 때문에
+        양지머리에는 질긴 결합조직의 비중이 높으며, 오랜 시간에 걸쳐 연하게
+        만드는 것이 좋다. 브리스킷용 차돌양지 원육입니다. 최대한 큰 덩어리로
+        드리며 일부 비계는 직접 제거하셔야 합니다.
+      </p>
+
+      <p id='rate'></p>
+
+      <h1>주문하기</h1>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">주문자 성함:</label>
+        <div class="col-sm-5">
+          <input id="name" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">수량:</label>
+
+        <div class="col-sm-5">
+          <select id="quantity" class="form-control" id="colFormLabel">
+            <option selected></option>
+            <option value="1">3kg</option>
+            <option value="2">6kg</option>
+            <option value="3">9kg</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">주소:</label>
+        <div class="col-sm-5">
+          <input id="address" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">전화번호:</label>
+        <div class="col-sm-5">
+          <input id="phone" type="text" class="form-control" />
+        </div>
+      </div>
+    </div>
+    <div class="wrap_submit">
+      <button onclick="order_complete()" type="submit" class="btn btn-primary">
+        주문하기
+      </button>
+    </div>
+    <div class="wrap_form">
+        <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+          </tr>
+        </thead>
+        <tbody id="orders-box">
+          <tr>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </body>
+</html>
